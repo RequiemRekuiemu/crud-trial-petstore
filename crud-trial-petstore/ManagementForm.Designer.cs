@@ -47,6 +47,7 @@
             btnDelete = new Button();
             btnReset = new Button();
             btnUpdate = new Button();
+            btnAdd = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvPetList).BeginInit();
             SuspendLayout();
             // 
@@ -205,6 +206,7 @@
             btnDelete.TabIndex = 20;
             btnDelete.Text = "DELETE";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnReset
             // 
@@ -225,12 +227,24 @@
             btnUpdate.TabIndex = 22;
             btnUpdate.Text = "UPDATE";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Location = new Point(694, 327);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(94, 29);
+            btnAdd.TabIndex = 23;
+            btnAdd.Text = "ADD";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // ManagementForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(982, 453);
+            Controls.Add(btnAdd);
             Controls.Add(btnUpdate);
             Controls.Add(btnReset);
             Controls.Add(btnDelete);
@@ -278,5 +292,6 @@
         private Button btnDelete;
         private Button btnReset;
         private Button btnUpdate;
+        private Button btnAdd;
     }
 }

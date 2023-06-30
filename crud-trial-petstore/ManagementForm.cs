@@ -28,6 +28,11 @@ namespace crud_trial_petstore
         {
             var petList = _petService.GetAll();
             dgvPetList.DataSource = new BindingSource { DataSource = petList };
+            txtMaxPrice.Text = string.Empty;
+            txtMinPrice.Text = string.Empty;
+            txtMaxQuantity.Text = string.Empty;
+            txtMinQuantity.Text = string.Empty;
+            txtPetId.Text = string.Empty;
         }
 
         private void btnPriceSearch_Click(object sender, EventArgs e)
@@ -70,7 +75,7 @@ namespace crud_trial_petstore
 
         private void dgvPetList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            foreach (DataGridViewRow row in dgvPetList.Rows)
+            foreach (DataGridViewRow row in dgvPetList.SelectedRows)
             {
                 globalPetId = Convert.ToInt32(row.Cells["PetId"].Value.ToString());
                 txtPetId.Text = globalPetId.ToString();
@@ -82,6 +87,36 @@ namespace crud_trial_petstore
         private void btnReset_Click(object sender, EventArgs e)
         {
             initForm();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int petId = globalPetId;
+            var listPet = _petService.GetAll();
+            Pet pet = listPet.FirstOrDefault(x => x.PetId == petId);
+            var confirmResult = MessageBox.Show("Are you sure to delete this product? " +
+                "This action cannot be undone.",
+                                     "Confirm Deletion",
+                                     MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                _petService.Delete(pet);
+            }
+
+            initForm();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form add = new AddPetForm();
+            add.ShowDialog();
+            this.Close();
         }
     }
 }
