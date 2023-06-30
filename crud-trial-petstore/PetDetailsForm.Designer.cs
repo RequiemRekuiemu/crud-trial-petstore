@@ -1,6 +1,6 @@
 ﻿namespace crud_trial_petstore
 {
-    partial class AddPetForm
+    partial class PetDetailsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -45,6 +45,8 @@
             txtErrorMsg = new Label();
             txtPrice = new TextBox();
             txtQuantity = new TextBox();
+            btnUpdate = new Button();
+            btnCancel = new Button();
             SuspendLayout();
             // 
             // label1
@@ -73,6 +75,7 @@
             btnAdd.TabIndex = 2;
             btnAdd.Text = "ADD";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Visible = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // label2
@@ -202,11 +205,34 @@
             txtQuantity.TabIndex = 23;
             txtQuantity.KeyPress += txtQuantity_KeyPress;
             // 
-            // AddPetForm
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(594, 300);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(94, 29);
+            btnUpdate.TabIndex = 24;
+            btnUpdate.Text = "UPDATE";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Visible = false;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Location = new Point(876, 412);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(94, 29);
+            btnCancel.TabIndex = 25;
+            btnCancel.Text = "CANCEL";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // PetDetailsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(982, 453);
+            Controls.Add(btnCancel);
+            Controls.Add(btnUpdate);
             Controls.Add(txtQuantity);
             Controls.Add(txtPrice);
             Controls.Add(txtErrorMsg);
@@ -224,7 +250,7 @@
             Controls.Add(btnAdd);
             Controls.Add(txtId);
             Controls.Add(label1);
-            Name = "AddPetForm";
+            Name = "PetDetailsForm";
             Text = "AddPetForm";
             ResumeLayout(false);
             PerformLayout();
@@ -249,5 +275,7 @@
         private Label txtErrorMsg;
         private TextBox txtPrice;
         private TextBox txtQuantity;
+        private Button btnUpdate;
+        private Button btnCancel;
     }
 }

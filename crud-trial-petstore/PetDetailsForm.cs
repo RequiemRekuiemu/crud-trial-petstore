@@ -13,13 +13,13 @@ using System.Windows.Forms;
 
 namespace crud_trial_petstore
 {
-    public partial class AddPetForm : Form
+    public partial class PetDetailsForm : Form
     {
         PetService _petService = new PetService();
         PetGroupService _petGroupService = new PetGroupService();
         PetShopMemberService _petShopMemberService = new PetShopMemberService();
 
-        public AddPetForm()
+        public PetDetailsForm()
         {
             InitializeComponent();
             initForm();
@@ -27,9 +27,28 @@ namespace crud_trial_petstore
 
         public void initForm()
         {
-            txtId.Text = autoIdGenerator().ToString();
             cbbGroupInitializer();
-            dtpImportDateInitializer();
+            if (ManagementForm.newStatus)
+            {
+                txtId.Text = autoIdGenerator().ToString();
+                dtpImportDateInitializer();
+                btnAdd.Visible = true;
+            }
+            else
+            {
+                var petList = _petService.GetAll();
+                txtId.Text = ManagementForm.globalPetId.ToString();
+                Pet pet = petList.FirstOrDefault(x => x.PetId == ManagementForm.globalPetId);
+                txtName.Text = pet.PetName;
+                dtpImportDate.Value = (DateTime)pet.ImportDate;
+                txtDescription.Text = pet.PetDescription;
+                txtQuantity.Text = pet.Quantity.ToString();
+                txtPrice.Text = pet.PetPrice.ToString();
+                var grouplist = _petGroupService.GetAll();
+                PetGroup group = grouplist.FirstOrDefault(x => x.PetGroupId == pet.PetGroupId);
+                cbbGroup.Text = group.PetGroupName;
+                btnUpdate.Visible = true;
+            }
         }
 
         public int autoIdGenerator()
@@ -94,7 +113,7 @@ namespace crud_trial_petstore
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Pet pet = new Pet();
-            
+
             int id = Convert.ToInt32(txtId.Text);
 
             String name = txtName.Text;
@@ -169,8 +188,6 @@ namespace crud_trial_petstore
 
             return result;
         }
-
-
 
         private Boolean checkPrice(double price)
         {
@@ -260,6 +277,82 @@ namespace crud_trial_petstore
             {
                 e.Handled = true; // Ignore the key press
             }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(txtId.Text);
+
+            var petList = _petService.GetAll();
+            Pet pet = petList.FirstOrDefault(x => x.PetId == id);           
+
+            String name = txtName.Text;
+            if (!checkName(name))
+            {
+                txtErrorMsg.Text = "Name is not valid!";
+                return;
+            }
+
+            DateTime importDate = DateTime.Now;
+
+            String description = txtDescription.Text;
+            if (!checkDescription(description))
+            {
+                txtErrorMsg.Text = "Description is not valid!";
+                return;
+            }
+
+            int quantity = Convert.ToInt32(txtQuantity.Text);
+            if (!checkQuantity(quantity))
+            {
+                txtErrorMsg.Text = "Quantity must be an integer higher than 0!";
+                return;
+            }
+
+            double price = Convert.ToDouble(txtPrice.Text);
+            if (!checkPrice(price))
+            {
+                txtErrorMsg.Text = "Price must be a double higher than 0!";
+                return;
+            }
+
+            String groupStr = cbbGroup.Text;
+            if (!checkGroup(groupStr))
+            {
+                txtErrorMsg.Text = "Group must be chosen!";
+                return;
+            }
+            var grouplist = _petGroupService.GetAll();
+            PetGroup group = grouplist.FirstOrDefault(x => x.PetGroupName == groupStr);
+            String groupId = group.PetGroupId;
+
+            try
+            {
+                pet.PetName = name;
+                pet.ImportDate = importDate;
+                pet.PetDescription = description;
+                pet.PetPrice = price;
+                pet.Quantity = quantity;
+                pet.PetGroupId = groupId;
+                _petService.Update(pet);
+
+                this.Hide();
+                Form management = new ManagementForm();
+                management.ShowDialog();
+                this.Close();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form management = new ManagementForm();
+            management.ShowDialog();
+            this.Close();
         }
     }
 }

@@ -26,6 +26,7 @@ namespace crud_trial_petstore
 
         private void initForm()
         {
+            newStatus = true;
             var petList = _petService.GetAll();
             dgvPetList.DataSource = new BindingSource { DataSource = petList };
             txtMaxPrice.Text = string.Empty;
@@ -71,7 +72,8 @@ namespace crud_trial_petstore
             dgvPetList.DataSource = new BindingSource { DataSource = result };
         }
 
-        public int globalPetId;
+        public static int globalPetId = 0;
+        public static Boolean newStatus = true;
 
         private void dgvPetList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -108,14 +110,18 @@ namespace crud_trial_petstore
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-
+            newStatus = false;
+            this.Hide();
+            Form petDetails = new PetDetailsForm();
+            petDetails.ShowDialog();
+            this.Close();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form add = new AddPetForm();
-            add.ShowDialog();
+            Form petDetails = new PetDetailsForm();
+            petDetails.ShowDialog();
             this.Close();
         }
     }
