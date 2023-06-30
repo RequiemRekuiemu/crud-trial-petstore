@@ -10,7 +10,6 @@ Each functions have been customized to the test's specifications could be seen b
 #### Database: SQL Server
 
 ### Test Specifications
-![Test_1](https://github.com/RequiemRekuiemu/crud-trial-petstore/blob/main/Test%20Specifications/Screenshot_2023-06-30_095313.png)
 ![Test_2](https://github.com/RequiemRekuiemu/crud-trial-petstore/blob/main/Test%20Specifications/Screenshot_2023-06-30_095340.png)
 ![Test_3](https://github.com/RequiemRekuiemu/crud-trial-petstore/blob/main/Test%20Specifications/Screenshot_2023-06-30_095353.png)
 ![Test_4](https://github.com/RequiemRekuiemu/crud-trial-petstore/blob/main/Test%20Specifications/Screenshot_2023-06-30_095401.png)
