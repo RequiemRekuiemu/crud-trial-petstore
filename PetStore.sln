@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crud-trial-petstore", "crud-trial-petstore\crud-trial-petstore.csproj", "{BEEC6590-ED43-4C85-8D34-96A0AD27C41A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{757BA8E8-151E-4DF9-8099-2021959F80F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEEC6590-ED43-4C85-8D34-96A0AD27C41A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEEC6590-ED43-4C85-8D34-96A0AD27C41A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEEC6590-ED43-4C85-8D34-96A0AD27C41A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEEC6590-ED43-4C85-8D34-96A0AD27C41A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{757BA8E8-151E-4DF9-8099-2021959F80F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{757BA8E8-151E-4DF9-8099-2021959F80F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{757BA8E8-151E-4DF9-8099-2021959F80F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{757BA8E8-151E-4DF9-8099-2021959F80F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E784B4DE-89FA-40AE-AC33-57EEF31AFF7D}
+	EndGlobalSection
+EndGlobal
