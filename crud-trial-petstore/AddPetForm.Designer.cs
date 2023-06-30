@@ -41,11 +41,10 @@
             label7 = new Label();
             label8 = new Label();
             dtpImportDate = new DateTimePicker();
-            txtQuantity = new NumericUpDown();
             cbbGroup = new ComboBox();
             txtErrorMsg = new Label();
             txtPrice = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)txtQuantity).BeginInit();
+            txtQuantity = new TextBox();
             SuspendLayout();
             // 
             // label1
@@ -125,6 +124,7 @@
             // txtDescription
             // 
             txtDescription.Location = new Point(161, 301);
+            txtDescription.MaxLength = 100;
             txtDescription.Multiline = true;
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(258, 27);
@@ -167,14 +167,6 @@
             dtpImportDate.Size = new Size(258, 27);
             dtpImportDate.TabIndex = 17;
             // 
-            // txtQuantity
-            // 
-            txtQuantity.Location = new Point(594, 147);
-            txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(258, 27);
-            txtQuantity.TabIndex = 18;
-            txtQuantity.KeyPress += txtQuantity_KeyPress;
-            // 
             // cbbGroup
             // 
             cbbGroup.FormattingEnabled = true;
@@ -195,20 +187,30 @@
             // txtPrice
             // 
             txtPrice.Location = new Point(594, 194);
+            txtPrice.MaxLength = 20;
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(258, 27);
             txtPrice.TabIndex = 22;
             txtPrice.KeyPress += txtPrice_KeyPress;
+            // 
+            // txtQuantity
+            // 
+            txtQuantity.Location = new Point(594, 146);
+            txtQuantity.MaxLength = 20;
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.Size = new Size(258, 27);
+            txtQuantity.TabIndex = 23;
+            txtQuantity.KeyPress += txtQuantity_KeyPress;
             // 
             // AddPetForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(982, 453);
+            Controls.Add(txtQuantity);
             Controls.Add(txtPrice);
             Controls.Add(txtErrorMsg);
             Controls.Add(cbbGroup);
-            Controls.Add(txtQuantity);
             Controls.Add(dtpImportDate);
             Controls.Add(label6);
             Controls.Add(label7);
@@ -224,7 +226,6 @@
             Controls.Add(label1);
             Name = "AddPetForm";
             Text = "AddPetForm";
-            ((System.ComponentModel.ISupportInitialize)txtQuantity).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -244,9 +245,9 @@
         private Label label7;
         private Label label8;
         private DateTimePicker dtpImportDate;
-        private NumericUpDown txtQuantity;
         private ComboBox cbbGroup;
         private Label txtErrorMsg;
         private TextBox txtPrice;
+        private TextBox txtQuantity;
     }
 }

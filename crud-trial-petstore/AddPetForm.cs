@@ -93,6 +93,8 @@ namespace crud_trial_petstore
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            Pet pet = new Pet();
+            
             int id = Convert.ToInt32(txtId.Text);
 
             String name = txtName.Text;
@@ -105,10 +107,56 @@ namespace crud_trial_petstore
             DateTime importDate = DateTime.Now;
 
             String description = txtDescription.Text;
-            int quantity = Convert.ToInt32(txtQuantity.Text);
-            double price = Convert.ToDouble(txtPrice.Text);
-            String groupStr = cbbGroup.Text;
+            if (!checkDescription(description))
+            {
+                txtErrorMsg.Text = "Description is not valid!";
+                return;
+            }
 
+            int quantity = Convert.ToInt32(txtQuantity.Text);
+            if (!checkQuantity(quantity))
+            {
+                txtErrorMsg.Text = "Quantity must be an integer higher than 0!";
+                return;
+            }
+
+            double price = Convert.ToDouble(txtPrice.Text);
+            if (!checkPrice(price))
+            {
+                txtErrorMsg.Text = "Price must be a double higher than 0!";
+                return;
+            }
+
+            String groupStr = cbbGroup.Text;
+            if (!checkGroup(groupStr))
+            {
+                txtErrorMsg.Text = "Group must be chosen!";
+                return;
+            }
+            var grouplist = _petGroupService.GetAll();
+            PetGroup group = grouplist.FirstOrDefault(x => x.PetGroupName == groupStr);
+            String groupId = group.PetGroupId;
+
+            try
+            {
+                pet.PetId = id;
+                pet.PetName = name;
+                pet.ImportDate = importDate;
+                pet.PetDescription = description;
+                pet.PetPrice = price;
+                pet.Quantity = quantity;
+                pet.PetGroupId = groupId;
+                _petService.Create(pet);
+
+                this.Hide();
+                Form management = new ManagementForm();
+                management.ShowDialog();
+                this.Close();
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         private Boolean checkName(String name)
@@ -185,28 +233,10 @@ namespace crud_trial_petstore
 
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (isSpecialCharacter(e.KeyChar))
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
             {
-                e.Handled = true; // Cancel the key press event
+                e.Handled = true; // Ignore the key press
             }
-        }
-
-        private static Boolean isSpecialCharacter(char c)
-        {
-            return !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c) && char.IsControl(c);
-        }
-
-        private void txtQuantity_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (isNegativeCharacter(e.KeyChar))
-            {
-                e.Handled = true; // Cancel the key press event
-            }
-        }
-
-        private static Boolean isNegativeCharacter(char c)
-        {
-            return !char.IsDigit(c) && char.IsControl(c);
         }
 
         private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
@@ -219,6 +249,14 @@ namespace crud_trial_petstore
 
             // Allow only one decimal separator
             if (e.KeyChar == '.' && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true; // Ignore the key press
+            }
+        }
+
+        private void txtQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true; // Ignore the key press
             }
