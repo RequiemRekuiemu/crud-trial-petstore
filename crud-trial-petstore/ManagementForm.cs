@@ -29,6 +29,8 @@ namespace crud_trial_petstore
             newStatus = true;
             var petList = _petService.GetAll();
             dgvPetList.DataSource = new BindingSource { DataSource = petList };
+            dgvPetList.Columns["PetGroup"].Visible = false;
+            dgvPetList.Columns["PetDescription"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             txtMaxPrice.Text = string.Empty;
             txtMinPrice.Text = string.Empty;
             txtMaxQuantity.Text = string.Empty;
@@ -38,8 +40,13 @@ namespace crud_trial_petstore
 
         private void btnPriceSearch_Click(object sender, EventArgs e)
         {
-            int max = Convert.ToInt32(txtMaxPrice.Text);
-            int min = Convert.ToInt32(txtMinPrice.Text);
+            double max = Convert.ToDouble(txtMaxPrice.Text);
+            double min = Convert.ToDouble(txtMinPrice.Text);
+            if (!priceValidation(min, max))
+            {
+                txtErrorMsg.Text = "Min value cannot exceed max value!";
+                return;
+            }
             var petList = _petService.GetAll();
             List<Pet> result = new List<Pet>();
 
@@ -52,12 +59,28 @@ namespace crud_trial_petstore
             }
             result = result.OrderBy(pet => pet.PetId).ToList();
             dgvPetList.DataSource = new BindingSource { DataSource = result };
+            txtErrorMsg.Text = string.Empty;
+        }
+
+        private Boolean priceValidation(double min, double max)
+        {
+            Boolean result = false;
+            if (min <= max)
+            {
+                result = true;
+            }
+            return result;
         }
 
         private void btnQuantitySearch_Click(object sender, EventArgs e)
         {
             int max = Convert.ToInt32(txtMaxQuantity.Text);
             int min = Convert.ToInt32(txtMinQuantity.Text);
+            if (!quantityValidation(min, max))
+            {
+                txtErrorMsg.Text = "Min value cannot exceed max value!";
+                return;
+            }
             var petList = _petService.GetAll();
             List<Pet> result = new List<Pet>();
 
@@ -70,6 +93,17 @@ namespace crud_trial_petstore
             }
             result = result.OrderBy(pet => pet.PetId).ToList();
             dgvPetList.DataSource = new BindingSource { DataSource = result };
+            txtErrorMsg.Text = string.Empty;
+        }
+
+        private Boolean quantityValidation(int min, int max)
+        {
+            Boolean result = false;
+            if (min <= max)
+            {
+                result = true;
+            }
+            return result;
         }
 
         public static int globalPetId = 0;
@@ -123,6 +157,52 @@ namespace crud_trial_petstore
             Form petDetails = new PetDetailsForm();
             petDetails.ShowDialog();
             this.Close();
+        }
+
+        private void txtMaxQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Ignore the key press
+            }
+        }
+
+        private void txtMinQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Ignore the key press
+            }
+        }
+
+        private void txtMaxPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Check if the pressed key is a digit, a decimal separator (dot), or a control key
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Ignore the key press
+            }
+
+            // Allow only one decimal separator
+            if (e.KeyChar == '.' && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true; // Ignore the key press
+            }
+        }
+
+        private void txtMinPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Check if the pressed key is a digit, a decimal separator (dot), or a control key
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Ignore the key press
+            }
+
+            // Allow only one decimal separator
+            if (e.KeyChar == '.' && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true; // Ignore the key press
+            }
         }
     }
 }

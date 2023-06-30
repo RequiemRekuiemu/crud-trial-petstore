@@ -48,6 +48,7 @@
             btnReset = new Button();
             btnUpdate = new Button();
             btnAdd = new Button();
+            txtErrorMsg = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvPetList).BeginInit();
             SuspendLayout();
             // 
@@ -103,6 +104,7 @@
             txtMaxPrice.Name = "txtMaxPrice";
             txtMaxPrice.Size = new Size(125, 27);
             txtMaxPrice.TabIndex = 5;
+            txtMaxPrice.KeyPress += txtMaxPrice_KeyPress;
             // 
             // label4
             // 
@@ -119,6 +121,7 @@
             txtMinPrice.Name = "txtMinPrice";
             txtMinPrice.Size = new Size(125, 27);
             txtMinPrice.TabIndex = 10;
+            txtMinPrice.KeyPress += txtMinPrice_KeyPress;
             // 
             // label5
             // 
@@ -135,6 +138,7 @@
             txtMinQuantity.Name = "txtMinQuantity";
             txtMinQuantity.Size = new Size(125, 27);
             txtMinQuantity.TabIndex = 16;
+            txtMinQuantity.KeyPress += txtMinQuantity_KeyPress;
             // 
             // label2
             // 
@@ -160,6 +164,7 @@
             txtMaxQuantity.Name = "txtMaxQuantity";
             txtMaxQuantity.Size = new Size(125, 27);
             txtMaxQuantity.TabIndex = 12;
+            txtMaxQuantity.KeyPress += txtMaxQuantity_KeyPress;
             // 
             // label7
             // 
@@ -239,11 +244,21 @@
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
+            // txtErrorMsg
+            // 
+            txtErrorMsg.AutoSize = true;
+            txtErrorMsg.ForeColor = Color.Red;
+            txtErrorMsg.Location = new Point(15, 405);
+            txtErrorMsg.Name = "txtErrorMsg";
+            txtErrorMsg.Size = new Size(0, 20);
+            txtErrorMsg.TabIndex = 24;
+            // 
             // ManagementForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(982, 453);
+            Controls.Add(txtErrorMsg);
             Controls.Add(btnAdd);
             Controls.Add(btnUpdate);
             Controls.Add(btnReset);
@@ -293,5 +308,6 @@
         private Button btnReset;
         private Button btnUpdate;
         private Button btnAdd;
+        private Label txtErrorMsg;
     }
 }
